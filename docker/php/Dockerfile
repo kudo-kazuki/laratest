@@ -16,6 +16,7 @@ RUN apt-get update && \
   zip \
   unzip \
   vim \
+  default-mysql-client \
   && docker-php-ext-install pdo_mysql bcmath && \
   pecl install xdebug && \
   docker-php-ext-enable xdebug
