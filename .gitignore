@@ -1,4 +1,5 @@
 *.sublime-project
 *.sublime-workspace
+public/C*/
 
-
+/laravel/__all_cache_clear.bat
