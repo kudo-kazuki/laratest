@@ -2,11 +2,13 @@
 	<div>
 		<h2>List</h2>
 		<ul v-for="(book, i) in books" :key="i">
-			<li>{{ book.title }}</li>
-			<nuxt-link :to="{ name: 'book-detail-id', params: { id: book.id } }"
-			><button>詳細</button>
-			</nuxt-link>
-			<button @click="onClickDelete(book.id)">削除</button>
+			<li>
+				{{ book.title }}
+				<nuxt-link :to="{ name: 'book-detail-id', params: { id: book.id } }">
+					<button>詳細</button>
+				</nuxt-link>
+				<button @click="onClickDelete(book.id)">削除</button>
+			</li>
 		</ul>
 		<h3>新規追加</h3>
 		<input v-model="form.title" type="text" placeholder="title" /><br />
