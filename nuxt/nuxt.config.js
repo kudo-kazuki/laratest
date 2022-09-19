@@ -42,12 +42,14 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true, // <= 修正
+    proxy: true,
+    credentials: true
   },
 
   proxy: { // <= 追加
@@ -56,5 +58,27 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  auth: {
+    redirect: {
+      login: '/auth/login',
+    },
+
+    strategies: {
+      laravelApi: {
+          provider: 'laravel/sanctum',
+          url: 'http://localhost:9999',
+          endpoints: {
+            login: { url: '/api/login', method: 'post' },
+            logout: { url: '/api/logout', method: 'post' },
+            user: { url: '/api/user', method: 'get' }
+          }
+        },
+    }
+  },
+
+  router: {
+    middleware: ['auth']
   }
 }
