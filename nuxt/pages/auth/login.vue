@@ -9,9 +9,9 @@
         <div class="col">
             <div class="form-group">
                 <!-- メールアドレス -->
-                <input v-model="email" placeholder="email">
+                <input v-model="form.email" placeholder="email">
                 <!-- パスワード -->
-                <input v-model="password" placeholder="password">
+                <input v-model="form.password" placeholder="password">
             </div>
             <button class="w-100" @click="login">Login</button>
         </div>
@@ -19,7 +19,51 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, reactive, getCurrentInstance } from '@nuxtjs/composition-api'
+
+interface State {
+    email: string
+    password: string
+}
+
+export default defineComponent({
+    setup() {
+        const root = getCurrentInstance()
+        console.log(root)
+
+        const form = reactive<State>({
+            email: null,
+            password: null
+        })
+
+        const login = async () => {
+            try{
+                // ログインする
+                const response = await root.proxy.$auth
+                    .loginWith('laravelApi', {
+                        data: form
+                    })
+                    .then(() => {
+                        // ログインに成功したら、/にページ遷移
+                        console.log('ログインしました');
+                        root.proxy.$router.push('/');
+                    });
+            } catch (error) {
+                // ログインに失敗したら、コンソールに出力する
+                console.log('ログイン失敗')
+                console.log(error)
+            }
+        }
+
+        return {
+            form,
+            login
+        }
+    },
+})
+
+/*
 export default {
     auth: false,
     data() {
@@ -53,4 +97,5 @@ export default {
         }
     }
 }
+*/
 </script>
