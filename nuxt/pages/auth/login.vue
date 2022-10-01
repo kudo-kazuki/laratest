@@ -16,11 +16,12 @@
             <button class="w-100" @click="login">Login</button>
         </div>
     </div>
+    <nuxt-logo/>
 </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, getCurrentInstance } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, useRoute, useRouter } from '@nuxtjs/composition-api'
 
 interface State {
     email: string
@@ -29,8 +30,9 @@ interface State {
 
 export default defineComponent({
     setup() {
-        const root = getCurrentInstance()
-        console.log(root)
+        const router = useRouter()
+        const context = router.app.context
+        console.log(router)
 
         const form = reactive<State>({
             email: null,
@@ -40,14 +42,14 @@ export default defineComponent({
         const login = async () => {
             try{
                 // ログインする
-                const response = await root.proxy.$auth
+                const response = await context.$auth
                     .loginWith('laravelApi', {
                         data: form
                     })
                     .then(() => {
                         // ログインに成功したら、/にページ遷移
                         console.log('ログインしました');
-                        root.proxy.$router.push('/');
+                        router.push('/');
                     });
             } catch (error) {
                 // ログインに失敗したら、コンソールに出力する
