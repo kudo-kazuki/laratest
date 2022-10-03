@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent, reactive, ref, useRouter, useFetch, useAsync, toRefs } from '@nuxtjs/composition-api'
 import {BookService, BookResponse } from '@/service/book'
 
 interface Form {
@@ -28,6 +28,46 @@ interface Form {
 
 type Book = BookResponse
 
+export default defineComponent({
+    setup() {
+        const router = useRouter()
+        // const context = router.app.context
+
+        const form = reactive<Form>({
+			title: '',
+			author: '',
+        })
+
+		let books = ref<Book[]>([])
+
+		useFetch(async () => {
+			books.value = await BookService.fetchBooks()
+		})
+
+        const onClickAdd = async () => {
+			await BookService.postBookData({ ...form })
+			books.value = await BookService.fetchBooks()
+			form.title = ''
+			form.author = ''
+        }
+
+		const onClickDelete = async (bookId: number) => {
+			await BookService.deleteBook(bookId)
+			books.value = await BookService.fetchBooks()
+        }
+
+		return {
+            books,
+			form,
+            onClickAdd,
+			onClickDelete
+        }
+    }
+})
+
+
+/*
+import Vue from 'vue'
 interface DataType {
 	form: Form
 	books: Book[]
@@ -58,4 +98,5 @@ export default Vue.extend({
 		},
 	},
 })
+*/
 </script>

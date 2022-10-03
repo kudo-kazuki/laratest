@@ -16,6 +16,7 @@ export class BookService {
 		const { data } = await axios.get<AxiosResponse<BookResponse[]>>(
 			'/api/books'
 		)
+		console.log('fetchBooks')
 		return data.data
 	}
 
