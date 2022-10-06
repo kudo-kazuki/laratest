@@ -1,0 +1,110 @@
+@charset "utf-8";
+$pc-width: 940px;
+$pc-outer-width:$pc-width + 20;
+$tab-width:750px;
+$sp-width:500px;
+
+$main-width: 740px;
+$aside-width: 220px;
+
+
+$sp: "screen and (max-width : " + $sp-width + ")";
+$tab: "screen and (max-width : " + $tab-width + ")";
+$PCmax: "screen and (max-width :" + $pc-outer-width + ")";
+//@media (max-width:599px){}
+//@media #{$sp}{}
+//@media #{$tab}{}
+//@media #{$PCmax}{}
+
+
+
+
+/*
+カラムリスト作成用
+前提として、ulまたはolであること。直下のliに対してスタイルが当たる。
+・cleafixもついでに宣言する。
+・$colに何カラムか指定、$mに何%ずつマージンを取るか指定すると、widthは自動計算される。
+・下マージンを$mbに指定するとそのとおりになる。指定しない場合は$mと同じ値。
+・第4～6引数はスマホのときはカラムを変えたい場合に指定。指定しない場合はPCと同じ。
+*/
+@mixin colcreate($col, $m, $mb:false, $sp_col:false, $sp_m:false, $sp_mb:false){
+	@extend %clearfix;
+    margin-left: -1%*$m;
+	$w: 100%/$col - $m;
+
+    >li{
+    	float: left;
+    	width: $w;
+    	margin: 0 0 1%*$m 1%*$m;
+
+    	@if $mb{
+			margin: 0 0 $mb 1%*$m;
+    	}
+    }
+
+	@media #{$tab}{
+		@if $sp_col and $sp_m{
+		    margin-left: -1%*$sp_m;
+			$w: 100%/$sp_col - $sp_m;
+
+		    >li{
+		    	float: left;
+		    	width: $w;
+		    	margin: 0 0 1%*$sp_m 1%*$sp_m;
+
+		    	@if $sp_mb{
+					margin: 0 0 $sp_mb 1%*$sp_m;
+		    	}
+		    }
+		}
+	}
+}
+
+
+
+
+
+
+
+//三角形を作るmixin
+//引数は(width, height, 方向, 色)の順番
+//方向は　右：r、 左：l、 上：t、 下：b
+//色のところは変数もOK
+//@include sankaku(6px, 10px, 'r', '#fff');
+@mixin sankaku($w, $h, $direction, $color){
+	width: 0;
+	height: 0;
+	border-style: solid;
+
+	@if $direction == "r" {
+		border-width: $h/2 0 $h/2 $w;
+		border-color: transparent;
+		border-left-color: #{$color};
+	}
+
+	@if $direction == "l" {
+		border-width: $h/2 $w $h/2 0;
+		border-color: transparent;
+		border-right-color: #{$color};
+	}
+
+	@if $direction == "t" {
+		border-width: 0 $w/2 $h $w/2;
+		border-color: transparent;
+		border-bottom-color: #{$color};
+	}
+
+	@if $direction == "b" {
+		border-width: $h $w/2 0 $w/2;
+		border-color: transparent;
+		border-top-color: #{$color};
+	}
+}
+
+
+
+
+
+
+
+

@@ -61,6 +61,12 @@ export default {
   build: {
   },
 
+  css: [
+    '~/assets/css/reset.css',
+    '~/assets/css/_mixin.scss',
+    '~/assets/css/_common.scss'
+  ],
+
   auth: {
     redirect: {
       login: '/auth/login',

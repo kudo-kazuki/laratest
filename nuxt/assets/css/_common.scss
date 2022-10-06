@@ -1,0 +1,227 @@
+@charset "utf-8";
+@import "mixin";
+
+html{
+  font-size:62.5%;
+}
+
+body {
+    font-family: "Noto Sans Japanese", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+	color: #111;
+	background-color: #fff;
+	-webkit-text-size-adjust: 100%;
+	//overflow-x: hidden;
+
+	@media #{$tab}{
+	    font-size: 14px;
+	    line-height: 1.6;
+	}
+}
+
+@media #{$tab}{
+	img{
+		max-width: 100%;
+	}
+}
+
+p{
+	margin-top:10px;
+	margin-bottom:17px;
+}
+
+img{
+	transition: opacity 0.3s ease;
+	backface-visibility: hidden;
+}
+
+a{
+	color: blue;
+	transition: color 0.3s ease, background-color 0.3s ease;
+	//text-decoration:none;
+
+	&:hover,
+	&:focus{
+		color: skyblue;
+		text-decoration:none;
+
+		img{
+			opacity: 0.8;
+		}
+	}
+}
+
+strong{
+	font-weight:bold;
+	color: crimson;
+}
+body.single{
+	strong{
+		color: inherit;
+	}
+}
+
+
+em{
+	font-weight:bold;
+}
+
+label{
+	//display:block;
+}
+
+input{
+	border:none;
+}
+
+input[type="submit"],
+button[type="submit"]{
+	-webkit-appearance: none;
+    font-family: inherit;
+}
+
+
+
+input[type="number"]::-webkit-outer-spin-button{display:none;}
+
+
+textarea,
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="password"]{
+	box-sizing: border-box;
+    font-family: inherit;
+	border: 1px solid #d9dde1;
+	background-color: #fff;
+
+	&.form-error{
+		box-shadow: 0 0 3px #cc2c2c inset, 0 0 9px #cc2c2c;
+		-webkit-box-shadow: 0 0 3px #cc2c2c inset, 0 0 9px #cc2c2c;
+		border:1px solid #cc2c2c;
+		background-color: #fff3f3;
+	}
+
+	&:focus{
+		background-color: #fff8dc;
+	}
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="password"]{
+	//height: 40px;
+	padding: 8px 0 8px 10px;
+}
+
+
+select{
+	border: 1px solid #ccc;
+	padding:5px 0 5px 5px;
+	background-color: #fff;
+    font-family: inherit;
+	box-sizing: border-box;
+}
+
+textarea{
+	padding:10px;
+	min-height:150px;
+}
+
+
+sup{
+	font-size: 9px;
+	vertical-align:text-top;
+}
+
+
+sub{
+	font-size: 9px;
+	vertical-align:text-bottom;
+}
+
+
+.caption{
+	display:block;
+	white-space:normal;
+}
+
+
+
+
+audio{
+	display: none;
+	-webkit-appearance: none;
+}
+
+
+
+.jsOffNone{
+	display: none;
+}
+
+
+pre{
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+
+
+hr{
+	color: #fff;
+}
+
+
+span.kakunin{
+	background-color: yellow;
+}
+
+
+
+@media #{$tab}{
+	#wpadminbar{
+		display: none;
+	}
+
+	html{
+		margin-top: 0 !important;
+	}
+}
+
+.submitBtn{
+	margin: 30px auto 0;
+	//text-align: left;
+	display: block;
+    background: #0085ba none repeat scroll 0 0;
+    border-color: #0073aa #006799 #006799;
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+    line-height: 1;
+    padding: 14px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.6rem;
+
+    &:hover,
+    &:focus{
+	    background: #008ec2 none repeat scroll 0 0;
+	    border-color: #006799;
+    }
+
+	&:hover{
+		cursor: pointer;
+	}
+
+	@media #{$tab}{
+		width: 90px;
+	}
+}
